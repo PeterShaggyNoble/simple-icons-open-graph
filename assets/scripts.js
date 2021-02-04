@@ -51,7 +51,7 @@
 			og.settings.step=og.settings.size+og.settings.gap;
 			og.settings.left=(og.settings.width-og.settings.columns*og.settings.step+og.settings.gap)/2;
 			og.settings.top=(og.settings.height-og.settings.rows*og.settings.step+og.settings.gap)/2;
-			og.json=await(await fetch(`simple-icons.json`)).json();
+			og.json=await(await fetch(`https://cdn.jsdelivr.net/npm/simple-icons@latest/_data/simple-icons.json`)).json();
 			og.data=Object.entries(await(await fetch(`https://houseofdesign.ie/data/icons/simpleicons.json`)).json());
 			og.elms.path.setAttribute(`d`,og.data.find(arr=>arr[0]===`simpleicons`)[1]);
 			og.icons=og.json.icons
