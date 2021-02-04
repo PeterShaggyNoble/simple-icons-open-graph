@@ -36,7 +36,8 @@
 		elms:{
 			svg:document.querySelector(`section>svg`),
 			rect:document.querySelector(`rect`),
-			canvas:document.querySelector(`canvas`),
+			path:document.querySelector(`path`),
+			canvas:document.querySelector(`canvas`)
 		},
 		objs:{
 			xml:new XMLSerializer,
@@ -52,6 +53,7 @@
 			og.settings.top=(og.settings.height-og.settings.rows*og.settings.step+og.settings.gap)/2;
 			og.json=await(await fetch(`simple-icons.json`)).json();
 			og.data=Object.entries(await(await fetch(`https://houseofdesign.ie/data/icons/simpleicons.json`)).json());
+			og.elms.path.setAttribute(`d`,og.data.find(arr=>arr[0]===`simpleicons`)[1]);
 			og.icons=og.json.icons
 				.map(og.setup)
 			console.log(og.icons.filter(obj=>obj.title.match(/-/)).length);
