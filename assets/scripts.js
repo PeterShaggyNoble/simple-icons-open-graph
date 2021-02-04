@@ -56,8 +56,6 @@
 			og.elms.path.setAttribute(`d`,og.data.find(arr=>arr[0]===`simpleicons`)[1]);
 			og.icons=og.json.icons
 				.map(og.setup)
-			console.log(og.icons.filter(obj=>obj.title.match(/-/)).length);
-			og.icons=og.icons
 				.filter(og.filter)
 				.sort(()=>.5-Math.random())
 				.slice(0,og.settings.icons);
