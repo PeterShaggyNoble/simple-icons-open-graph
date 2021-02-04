@@ -61,11 +61,7 @@
 				.slice(0,og.settings.icons);
 			og.populate();
 			og.objs.image.addEventListener(`load`,og.draw);
-			og.objs.image.src=URL.createObjectURL(
-				new Blob([og.objs.xml.serializeToString(og.elms.svg)],{
-					type:`image/svg+xml;charset=utf-8`
-				})
-			);
+			og.objs.image.src=URL.createObjectURL(og.getblob);
 		},
 		draw(){
 			og.context.clearRect(0,0,og.settings.width,og.settings.height);
@@ -85,27 +81,32 @@
 				return false;
 			return true;
 		},
+		getblob(){
+			return new Blob([og.objs.xml.serializeToString(og.elms.svg)],{
+				type:`image/svg+xml;charset=utf-8`
+			});
+		},
 		normalise(string){
 			return string
 				.toLowerCase()
-				.replace(/\+/g, "plus")
-				.replace(/^\./, "dot-")
-				.replace(/\.$/, "-dot")
-				.replace(/\./g, "-dot-")
-				.replace(/^&/, "and-")
-				.replace(/&$/, "-and")
-				.replace(/&/g, "-and-")
-				.replace(/đ/g, "d")
-				.replace(/ħ/g, "h")
-				.replace(/ı/g, "i")
-				.replace(/ĸ/g, "k")
-				.replace(/ŀ/g, "l")
-				.replace(/ł/g, "l")
-				.replace(/ß/g, "ss")
-				.replace(/ŧ/g, "t")
-				.normalize("NFD")
-				.replace(/[\u0300-\u036f]/g, "")
-				.replace(/[^a-z0-9_\-]/g, "");
+				.replace(/\+/g,`plus`)
+				.replace(/^\./,`dot-`)
+				.replace(/\.$/,`-dot`)
+				.replace(/\./g,`-dot-`)
+				.replace(/^&/,`and-`)
+				.replace(/&$/,`-and`)
+				.replace(/&/g,`-and-`)
+				.replace(/đ/g,`d`)
+				.replace(/ħ/g,`h`)
+				.replace(/ı/g,`i`)
+				.replace(/ĸ/g,`k`)
+				.replace(/ŀ/g,`l`)
+				.replace(/ł/g,`l`)
+				.replace(/ß/g,`ss`)
+				.replace(/ŧ/g,`t`)
+				.normalize(`NFD`)
+				.replace(/[\u0300-\u036f]/g,``)
+				.replace(/[^a-z0-9_\-]/g,``);
 		},
 		populate(){
 			let 	icon,src,path,
@@ -116,7 +117,10 @@
 				if(path)
 					path=path.cloneNode(false);
 				else path=document.createElementNS(`http://www.w3.org/2000/svg`,`path`);
-				if(count>0&&count%og.settings.columns===0){
+				if(
+					count>0&&
+					count%og.settings.columns===0
+				){
 					x=og.settings.left;
 					y+=og.settings.step;
 				}else if(
