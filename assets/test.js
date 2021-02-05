@@ -21,7 +21,7 @@
 			test.elms.luminance.value=test.settings.luminance;
 			test.elms.ratio.value=test.settings.ratio;
 			test.methods=new (await import(`./modules/tests.js`)).tests(test);
-			test.icons=Object.values(icons).filter(test.filter).slice(0,100);
+			test.icons=Object.values(icons).filter(test.filter);
 			test.count=test.icons.length;
 			test.populate();
 			test.elms.count.nodeValue=test.count;
