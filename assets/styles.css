@@ -131,7 +131,7 @@ form#tests>ul svg{
 	width:24px;
 }
 form#tests>ul[data-sort=name]>li[data-sort=name]>svg,
-form#tests>ul[data-sort=size]>li[data-sort=size]>svg,
+form#tests>ul[data-sort=length]>li[data-sort=length]>svg,
 form#tests>ul[data-sort=luminance]>li[data-sort=luminance]>svg,
 form#tests>ul[data-sort=ratio]>li[data-sort=ratio]>svg{
 	fill:var(--color);
