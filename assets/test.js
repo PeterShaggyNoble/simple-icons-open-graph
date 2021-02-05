@@ -15,6 +15,7 @@
 		},
 		async init(){
 			test.blacklist=(await import(`./modules/blacklist.js`)).blacklist;
+			test.forced=(await import(`./modules/forced.js`)).forced;
 			test.whitelist=(await import(`./modules/whitelist.js`)).whitelist;
 			test.settings=(await import(`./modules/settings.js`)).settings;
 			test.elms.length.value=test.settings.length;
@@ -78,6 +79,10 @@
 					length=name.cloneNode(false);
 					luminance=name.cloneNode(false);
 					ratio=name.cloneNode(false);
+					name.dataset.sort=`name`;
+					length.dataset.sort=`length`;
+					luminance.dataset.sort=`luminance`;
+					ratio.dataset.sort=`ratio`;
 					svg.setAttribute(`viewBox`,`0 0 24 24`);
 				}
 				icon.item=document.createElement(`li`);
@@ -89,10 +94,12 @@
 				icon.item.append(svg);
 				test.elms.grid.append(icon.item)
 				icon.info={
-					whitelisted:test.whitelist.includes(icon.slug),
-					length:icon.data.length,
-					luminance:(test.methods.getluminance(icon.hex)*100|0)/100,
-					ratio:(test.methods.getratio(path)*100|0)/100
+					whitelisted:test.forced.includes(icon.slug)||test.whitelist.includes(icon.slug)
+				}
+				if(!icon.info.whitelisted){
+					icon.info.length=icon.data.length;
+					icon.info.luminance=(test.methods.getluminance(icon.hex)*100|0)/100;
+					icon.info.ratio=(test.methods.getratio(path)*100|0)/100;
 				}
 				icon.order={
 					name:order++
@@ -109,7 +116,7 @@
 			let	target=event.target,
 				key=target.dataset.sort;
 			if(target!==test.elms.sort&&key&&key!==test.elms.sort.dataset.sort){
-				test.elms.sort.dataset.sort=key;
+				test.elms.grid.dataset.sort=test.elms.sort.dataset.sort=key;
 				for(let icon of test.icons)
 					icon.item.style.order=icon.order[key];
 			}

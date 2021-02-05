@@ -154,6 +154,8 @@ ol#grid{
 ol#grid>li{
 	background:var(--color);
 	border-radius:4px;
+	display:flex;
+	flex-direction:column;
 	padding:20px;
 }
 ol#grid>li.hide{
@@ -167,9 +169,14 @@ ol#grid svg{
 }
 ol#grid p{
 	margin:5px 0 0;
+	order:2;
 	text-align:center;
 	white-space:nowrap;
 }
-ol#grid p:first-of-type{
+ol#grid[data-sort=name] p[data-sort=name],
+ol#grid[data-sort=length] p[data-sort=length],
+ol#grid[data-sort=luminance] p[data-sort=luminance],
+ol#grid[data-sort=ratio] p[data-sort=ratio]{
 	font-weight:700;
+	order:1;
 }

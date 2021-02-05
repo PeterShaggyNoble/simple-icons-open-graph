@@ -7,6 +7,7 @@
 		},
 		async init(){
 			opengraph.blacklist=(await import(`./modules/blacklist.js`)).blacklist;
+			opengraph.forced=(await import(`./modules/forced.js`)).forced;
 			opengraph.whitelist=(await import(`./modules/whitelist.js`)).whitelist;
 			opengraph.settings=(await import(`./modules/settings.js`)).settings;
 			opengraph.tests=new (await import(`./modules/tests.js`)).tests(opengraph);
@@ -39,9 +40,15 @@
 			let slug=obj.slug
 			if(opengraph.blacklist.includes(slug))
 				return false;
-			if(opengraph.whitelist.includes(slug))
-				return true;
 			let data=icons.get(slug).path;
+			if(opengraph.forced.includes(slug)){
+				obj.data=data;
+				return true;
+			}
+			if(opengraph.whitelist.includes(slug)){
+				obj.data=data;
+				return true;
+			}
 			if(opengraph.tests.length(data))
 				return false;
 			if(opengraph.tests.luminance(obj.hex))
@@ -51,12 +58,17 @@
 			obj.data=data;
 			return true;
 		},
+		force(obj){
+			return opengraph.forced.includes(obj.slug)?-1:1;
+		},
 		load(){
 			opengraph.context=opengraph.elms.canvas.getContext(`2d`);
 			opengraph.icons=Object.values(icons)
 				.filter(opengraph.filter)
-				.sort(()=>.5-Math.random())
+				.sort(opengraph.random)
+				.sort(opengraph.force)
 				.slice(0,opengraph.settings.icons);
+			console.log
 			opengraph.addsi();
 			opengraph.populate();
 			opengraph.elms.image.addEventListener(`load`,opengraph.draw);
@@ -99,6 +111,9 @@
 				x+=opengraph.settings.step;
 				count+=1;
 			}
+		},
+		random(){
+			return .5-Math.random();
 		}
 	}
 	opengraph.init();
