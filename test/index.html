@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Simple Icons Open Graph Image Icon Tester</title>
+		<meta charset="utf-8">
+		<meta content="initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=0,width=device-width" name="viewport">
+		<meta name="robots" content="noodp">
+		<meta content="#111111" name="theme-color">
+		<link href="https://fonts.googleapis.com/css2?family=Roboto&amp;display=swap" rel="stylesheet">
+		<link href="../assets/styles.css" rel="stylesheet">
+		<link rel="icon" type="image/x-icon" href="https://simpleicons.org/images/favicon.ico">
+		<link rel="icon" type="image/png" href="https://simpleicons.org/images/favicon.png">
+		<link rel="apple-touch-icon" href="https://simpleicons.org/images/apple-touch-icon.png">
+		<link rel="mask-icon" href="https://simpleicons.org/images/logo.svg" color="#111111">
+	</head>
+	<body>
+		<form id="tests">
+			<label for="length">Length: </label>
+			<input id="length" required step="1" type="number" value="0">
+			<p id="range_length"></p>
+			<label for="luminance">Luminance: </label>
+			<input id="luminance" required step=".01" type="number" value="0">
+			<p id="range_luminance"></p>
+			<label for="ratio">Ratio: </label>
+			<input id="ratio" required step=".01" type="number" value="0">
+			<p id="range_ratio"></p>
+			<ul data-sort="name" id="sort">
+				<li>Sort: </li>
+				<li data-sort="name"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 7A2 2 0 0 0 1 9V17H3V13H5V17H7V9A2 2 0 0 0 5 7H3M3 9H5V11H3M15 10.5V9A2 2 0 0 0 13 7H9V17H13A2 2 0 0 0 15 15V13.5A1.54 1.54 0 0 0 13.5 12A1.54 1.54 0 0 0 15 10.5M13 15H11V13H13V15M13 11H11V9H13M19 7A2 2 0 0 0 17 9V15A2 2 0 0 0 19 17H21A2 2 0 0 0 23 15V14H21V15H19V9H21V10H23V9A2 2 0 0 0 21 7Z"/></svg></li>
+				<li data-sort="length"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.39,18.36L3.16,16.6L4.58,18L5.64,16.95L4.22,15.54L5.64,14.12L8.11,16.6L9.17,15.54L6.7,13.06L8.11,11.65L9.53,13.06L10.59,12L9.17,10.59L10.59,9.17L13.06,11.65L14.12,10.59L11.65,8.11L13.06,6.7L14.47,8.11L15.54,7.05L14.12,5.64L15.54,4.22L18,6.7L19.07,5.64L16.6,3.16L18.36,1.39L22.61,5.64L5.64,22.61L1.39,18.36Z"/></svg></li>
+				<li data-sort="luminance"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.55,18.54L4.96,19.95L6.76,18.16L5.34,16.74M11,22.45C11.32,22.45 13,22.45 13,22.45V19.5H11M12,5.5A6,6 0 0,0 6,11.5A6,6 0 0,0 12,17.5A6,6 0 0,0 18,11.5C18,8.18 15.31,5.5 12,5.5M20,12.5H23V10.5H20M17.24,18.16L19.04,19.95L20.45,18.54L18.66,16.74M20.45,4.46L19.04,3.05L17.24,4.84L18.66,6.26M13,0.55H11V3.5H13M4,10.5H1V12.5H4M6.76,4.84L4.96,3.05L3.55,4.46L5.34,6.26L6.76,4.84Z"/></svg></li>
+				<li data-sort="ratio"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19,12H17V15H14V17H19V12M7,9H10V7H5V12H7V9M21,3H3A2,2 0 0,0 1,5V19A2,2 0 0,0 3,21H21A2,2 0 0,0 23,19V5A2,2 0 0,0 21,3M21,19H3V5H21V19Z"/></svg></li>
+			</ul>
+			<p>Available Icons: <span id="count">0</span></p>
+		</form>
+		<ol id="grid"></ol>
+		<script src="https://cdn.jsdelivr.net/npm/simple-icons@latest/index.min.js"></script>
+		<script src="../assets/test.js" type="module"></script>
+	</body>
+</html>
