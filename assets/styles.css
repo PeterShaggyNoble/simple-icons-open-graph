@@ -83,7 +83,7 @@ form#tests{
 	display:flex;
 	flex-wrap:wrap;
 	gap:2px 8px;
-	justify-content:space-between;
+	justify-content:flex-start;
 	margin:0 auto;
 	padding:24px 0 8px;
 	max-width:1200px;
@@ -109,7 +109,7 @@ form#tests>input+p{
 	padding:2px 0 0 4px;
 }
 form#tests>ul{
-	margin-top:14px;
+	margin:14px 16px 0 0;
 	order:4;
 }
 form#tests>ul>li{
@@ -119,7 +119,8 @@ form#tests>ul>li{
 	margin-right:6px;
 	vertical-align:middle;
 }
-form#tests>ul>li+li{
+form#tests>ul>li[id],
+form#tests>ul>li[data-sort]{
 	cursor:pointer;
 }
 form#tests>ul svg{
@@ -130,33 +131,42 @@ form#tests>ul svg{
 	transition:fill .225s var(--timing-function);
 	width:24px;
 }
-form#tests>ul[data-sort=name]>li[data-sort=name]>svg,
-form#tests>ul[data-sort=length]>li[data-sort=length]>svg,
-form#tests>ul[data-sort=luminance]>li[data-sort=luminance]>svg,
-form#tests>ul[data-sort=ratio]>li[data-sort=ratio]>svg{
+body[data-sort=name] form#tests li[data-sort=name]>svg,
+body[data-sort=length] form#tests li[data-sort=length]>svg,
+body[data-sort=luminance] form#tests li[data-sort=luminance]>svg,
+body[data-sort=ratio] form#tests li[data-sort=ratio]>svg,
+body[data-theme=light] form#tests li#theme>svg{
 	fill:var(--color);
 }
 form#tests>p:last-of-type{
 	font-weight:bold;
 	line-height:24px;
-	margin-top:14px;
+	margin:14px 0 0 auto;
 	order:5;
 }
 ol#grid{
-	color:#fff;
 	display:grid;
 	font-size:12px;
-	gap:8px;
+	gap:16px;
 	grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
 	margin:0 auto;
 	max-width:1200px;
 }
 ol#grid>li{
-	background:var(--color);
 	border-radius:4px;
+	box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);
 	display:flex;
 	flex-direction:column;
 	padding:20px;
+	transition:color .225s var(--timing-function),background .225s var(--timing-function);
+}
+body[data-theme=dark]>ol#grid>li{
+	background:var(--color);
+	color:#fff;
+}
+body[data-theme=light]>ol#grid>li{
+	background:#fff;
+	color:var(--color);
 }
 ol#grid>li.hide{
 	display:none;
@@ -173,10 +183,10 @@ ol#grid p{
 	text-align:center;
 	white-space:nowrap;
 }
-ol#grid[data-sort=name] p[data-sort=name],
-ol#grid[data-sort=length] p[data-sort=length],
-ol#grid[data-sort=luminance] p[data-sort=luminance],
-ol#grid[data-sort=ratio] p[data-sort=ratio]{
+body[data-sort=name]>ol#grid p[data-sort=name],
+body[data-sort=length]>ol#grid p[data-sort=length],
+body[data-sort=luminance]>ol#grid p[data-sort=luminance],
+body[data-sort=ratio]>ol#grid p[data-sort=ratio]{
 	font-weight:700;
 	order:1;
 }

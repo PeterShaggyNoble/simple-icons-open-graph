@@ -11,7 +11,8 @@
 				ratio:document.getElementById(`range_ratio`)
 			},
 			sort:document.getElementById(`sort`),
-			count:document.getElementById(`count`).firstChild
+			count:document.getElementById(`count`).firstChild,
+			theme:document.getElementById(`theme`)
 		},
 		async init(){
 			test.blacklist=(await import(`./modules/blacklist.js`)).blacklist;
@@ -34,6 +35,7 @@
 			test.elms.luminance.addEventListener(`input`,test.input,false);
 			test.elms.ratio.addEventListener(`input`,test.input,false);
 			test.elms.sort.addEventListener(`click`,test.sort,false);
+			test.elms.theme.addEventListener(`click`,test.theme,false);
 		},
 		filter(obj){
 			if(test.blacklist.includes(obj.slug))
@@ -115,11 +117,14 @@
 		sort(event){
 			let	target=event.target,
 				key=target.dataset.sort;
-			if(target!==test.elms.sort&&key&&key!==test.elms.sort.dataset.sort){
-				test.elms.grid.dataset.sort=test.elms.sort.dataset.sort=key;
+			if(key&&key!==document.body.dataset.sort){
+				document.body.dataset.sort=key;
 				for(let icon of test.icons)
 					icon.item.style.order=icon.order[key];
 			}
+		},
+		theme(){
+			document.body.dataset.theme=document.body.dataset.theme===`dark`?`light`:`dark`;
 		},
 		toggle(icon){
 			let hide=icon.info.length>test.settings.length||icon.info.luminance<test.settings.luminance||icon.info.ratio>test.settings.ratio;
