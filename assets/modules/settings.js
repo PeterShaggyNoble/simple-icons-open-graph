@@ -6,8 +6,5 @@ export const settings={
 	centre:2,
 	native:24,
 	scale:2,
-	length:5000,
-	luminance:96,
-	ratio:3,
 	layout:false
 };

@@ -1,5 +1,6 @@
 :root{
 	--color:#111;
+	--error:#b00020;
 	--highlight:#eee;
 	--timing-function:cubic-bezier(.4,0,.2,1);
 }
@@ -63,11 +64,15 @@ body :hover::-webkit-scrollbar-thumb{
 }
 section#image{
 	background:#fff;
+	border-radius:0 0 4px 4px;
 	box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);
+	display:flex;
+	flex-wrap:wrap;
+	justify-content:space-between;
 	overflow:hidden;
 	position:relative;
+	width:1200px;
 }
-section#image,
 section#image>svg,
 section#image>canvas{
 	height:630px;
@@ -79,7 +84,33 @@ section#image>canvas{
 	opacity:0;
 	top:0;
 }
-form#tests{
+section#image>p,
+section#image>button{
+	margin:16px;
+}
+section#image>p>a,
+section#image>button{
+	background:var(--color);
+	border-radius:4px;
+	box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);
+	cursor:pointer;
+	display:block;
+	font-weight:700;
+	color:#fff;
+	line-height:36px;
+	padding:0 16px 0 8px;
+	text-transform:uppercase;
+}
+section#image>p>a>svg,
+section#image>button>svg{
+	fill:currentcolor;
+	height:24px;
+	margin:6px 4px 6px 0;
+	pointer-events:none;
+	vertical-align:top;
+	width:24px;
+}
+section#filters{
 	display:flex;
 	flex-wrap:wrap;
 	gap:2px 8px;
@@ -88,42 +119,49 @@ form#tests{
 	padding:24px 0 8px;
 	max-width:1200px;
 }
-form#tests>label{
+section#filters>label{
 	flex:1 1 calc((100% - 16px) / 3);
 	font-weight:bold;
 	order:1;
 }
-form#tests>input{
+section#filters>input{
 	border:1px solid;
 	border-radius:4px;
 	flex:1 1 calc((100% - 16px) / 3);
 	height:30px;
 	line-height:28px;
-	padding:0 5px;
 	order:2;
+	padding:0 5px;
+	transition:border .225s var(--timing-function);
 }
-form#tests>input+p{
+section#filters>input:invalid{
+	border-color:var(--error);
+}
+section#filters>input+p{
 	flex:1 1 calc((100% - 16px) / 3);
 	font-size:12px;
 	order:3;
 	padding:2px 0 0 4px;
 }
-form#tests>ul{
+section#filters>ul{
 	margin:14px 16px 0 0;
 	order:4;
 }
-form#tests>ul>li{
+section#filters>ul>li{
 	display:inline-block;
 	font-weight:bold;
-	line-height:24px;
 	margin-right:6px;
-	vertical-align:middle;
+	vertical-align:top;
 }
-form#tests>ul>li[id],
-form#tests>ul>li[data-sort]{
+section#filters>ul>li[id],
+section#filters>ul>li[data-sort]{
 	cursor:pointer;
 }
-form#tests>ul svg{
+section#filters>ul>li[id]{
+	border-right:1px solid #9e9e9e;
+	padding-right:6px;
+}
+section#filters>ul svg{
 	fill:#9e9e9e;
 	height:24px;
 	pointer-events:none;
@@ -131,14 +169,15 @@ form#tests>ul svg{
 	transition:fill .225s var(--timing-function);
 	width:24px;
 }
-body[data-sort=name] form#tests li[data-sort=name]>svg,
-body[data-sort=length] form#tests li[data-sort=length]>svg,
-body[data-sort=luminance] form#tests li[data-sort=luminance]>svg,
-body[data-sort=ratio] form#tests li[data-sort=ratio]>svg,
-body[data-theme=light] form#tests li#theme>svg{
+body[data-sort=name] section#filters li[data-sort=name]>svg,
+body[data-sort=color] section#filters li[data-sort=color]>svg,
+body[data-sort=length] section#filters li[data-sort=length]>svg,
+body[data-sort=luminance] section#filters li[data-sort=luminance]>svg,
+body[data-sort=ratio] section#filters li[data-sort=ratio]>svg,
+body[data-theme=light] section#filters li#theme>svg{
 	fill:var(--color);
 }
-form#tests>p:last-of-type{
+section#filters>p:last-of-type{
 	font-weight:bold;
 	line-height:24px;
 	margin:14px 0 0 auto;
@@ -158,7 +197,7 @@ ol#grid>li{
 	display:flex;
 	flex-direction:column;
 	padding:20px;
-	transition:color .225s var(--timing-function),background .225s var(--timing-function);
+	transition:color .225s var(--timing-function),background .225s var(--timing-function),order .375s var(--timing-function);
 }
 body[data-theme=dark]>ol#grid>li{
 	background:var(--color);
@@ -184,6 +223,7 @@ ol#grid p{
 	white-space:nowrap;
 }
 body[data-sort=name]>ol#grid p[data-sort=name],
+body[data-sort=color]>ol#grid p[data-sort=color],
 body[data-sort=length]>ol#grid p[data-sort=length],
 body[data-sort=luminance]>ol#grid p[data-sort=luminance],
 body[data-sort=ratio]>ol#grid p[data-sort=ratio]{
