@@ -50,7 +50,7 @@
 				test.order(`length`);
 				test.order(`luminance`);
 				test.order(`ratio`);
-				test.icons.sort(test.ordercolor).reverse();
+				test.icons.reverse().sort(test.ordercolor).reverse();
 				test.index(`color`);
 				nodes.inputs.length.addEventListener(`input`,test.input,false);
 				nodes.inputs.luminance.addEventListener(`input`,test.input,false);
