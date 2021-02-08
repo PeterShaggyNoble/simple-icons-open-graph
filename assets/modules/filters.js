@@ -42,8 +42,8 @@ export const filters={
 		};
 	},
 	hsl(hex,limit){
-		let ref=this.gethsl(hex);
-		return ref.hue<limit.hue||ref.saturation<limit.saturation||ref.lightness<limit.lightness;
+		let hsl=this.gethsl(hex);
+		return hsl.hue<limit.hue||hsl.saturation<limit.saturation||hsl.lightness<limit.lightness;
 	},
 	getluminance(hex){
 		let {r,g,b}=this.getrgb(hex);

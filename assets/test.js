@@ -6,10 +6,9 @@
 				luminance:document.getElementById(`luminance`),
 				ratio:document.getElementById(`ratio`)
 			},
-			theme:document.getElementById(`theme`),
 			sort:document.getElementById(`sort`),
-			count:document.getElementById(`count`).firstChild,
-			total:document.getElementById(`total`).firstChild
+			theme:document.getElementById(`theme`),
+			count:document.getElementById(`count`).firstChild
 		},
 		test={
 			async init(){
@@ -24,9 +23,6 @@
 			getpath(obj){
 				obj.data=icons.get(obj.slug).path;
 				return obj;
-			},
-			index(key){
-				test.icons.map((obj,idx)=>obj.order[key]=idx+1);
 			},
 			input(event){
 				let target=event.target;
@@ -44,29 +40,28 @@
 				nodes.inputs.ratio.value=test.limits.ratio;
 				test.icons=Object.values(icons).map(test.getpath).sort(test.ordername);
 				test.count=test.icons.length;
-				nodes.total.nodeValue=test.count;
+				document.getElementById(`total`).firstChild.nodeValue=test.count;
 				test.populate();
 				nodes.count.nodeValue=test.count;
-				test.order(`length`);
-				test.order(`luminance`);
-				test.order(`ratio`);
+				for(let key in nodes.inputs){
+					test.order(key,nodes.inputs[key]);
+					nodes.inputs[key].addEventListener(`input`,test.input,false);
+				}
 				test.icons.sort(test.ordercolor).reverse();
-				test.index(`color`);
-				nodes.inputs.length.addEventListener(`input`,test.input,false);
-				nodes.inputs.luminance.addEventListener(`input`,test.input,false);
-				nodes.inputs.ratio.addEventListener(`input`,test.input,false);
+				test.setorder(`color`);
 				nodes.sort.addEventListener(`click`,test.sort,false);
 				nodes.theme.addEventListener(`click`,test.theme,false);
 			},
-			order(key){
+			order(key,input){
 				if(key===`luminance`)
 					test.icons.sort((x,y)=>x.info[key]>y.info[key]?1:-1);
 				else test.icons.sort((x,y)=>x.info[key]>y.info[key]?-1:1);
-				test.index(key);
+				test.setorder(key);
 				test.icons.sort(test.ordername);
-				let 	min=nodes.inputs[key].min=Math.min(...test.icons.map(obj=>obj.info[key])),
-					max=nodes.inputs[key].max=Math.max(...test.icons.map(obj=>obj.info[key]));
-				nodes.inputs[key].nextElementSibling.append(document.createTextNode(`(${min} - ${max})`));
+				let 	vals=test.icons.map(obj=>obj.info[key]),
+					min=input.min=Math.min(...vals),
+					max=input.max=Math.max(...vals);
+				input.nextElementSibling.append(document.createTextNode(`(${min} - ${max})`));
 			},
 			ordercolor(x,y){
 				/* adapted from https://www.npmjs.com/package/color-sorter */
@@ -87,7 +82,7 @@
 			},
 			populate(){
 				let 	order=1,
-					color,luminance,hex,name,path,ratio,length,svg;
+					luminance,hex,hsl,name,path,ratio,length,svg;
 				for(let icon of test.icons){
 					if(svg){
 						svg=svg.cloneNode(false);
@@ -112,23 +107,21 @@
 						ratio.dataset.sort=`ratio`;
 					}
 					icon.item=document.createElement(`li`);
-					icon.item.style.order=order;
 					path.setAttribute(`fill`,`#`+icon.hex);
 					path.setAttribute(`d`,icon.data);
 					svg.append(path);
 					name.append(document.createTextNode(icon.title));
 					icon.item.append(svg);
 					nodes.grid.append(icon.item);
-					color=test.filters.gethsl(icon.hex);
+					hsl=test.filters.gethsl(icon.hex);
 					icon.info={
-						hue:test.round(color.hue),
+						hue:test.round(hsl.hue),
 						length:icon.data.length,
-						lightness:test.round(color.lightness),
+						lightness:test.round(hsl.lightness),
 						luminance:test.round(test.filters.getluminance(icon.hex)),
 						ratio:test.round(test.filters.getratio(path)),
-						saturation:test.round(color.saturation)
+						saturation:test.round(hsl.saturation)
 					};
-					icon.order={name:order++};
 					hex.append(document.createTextNode(`Hex: #`+icon.hex));
 					length.append(document.createTextNode(`Length: `+icon.info.length));
 					luminance.append(document.createTextNode(`Luminance: `+icon.info.luminance));
@@ -140,14 +133,13 @@
 			round(val){
 				return Math.round(val*100)/100;
 			},
+			setorder(key){
+				test.icons.map((obj,idx)=>obj.item.style.setProperty(`--order-`+key,idx+1));
+			},
 			sort(event){
-				let	target=event.target,
-					key=target.dataset.sort;
-				if(key&&key!==document.body.dataset.sort){
+				let key=event.target.dataset.sort;
+				if(key&&key!==document.body.dataset.sort)
 					document.body.dataset.sort=key;
-					for(let icon of test.icons)
-						icon.item.style.order=icon.order[key];
-				}
 			},
 			theme(){
 				document.body.dataset.theme=document.body.dataset.theme===`dark`?`light`:`dark`;
