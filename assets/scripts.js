@@ -58,6 +58,8 @@
 					return false;
 				if(opengraph.filters.luminance(obj.hex,opengraph.limits.luminance))
 					return false;
+				if(opengraph.filters.hsl(obj.hex,opengraph.limits.hsl))
+					return false;
 				if(opengraph.filters.ratio(data,opengraph.limits.ratio,nodes.svg))
 					return false;
 				obj.data=data;
@@ -80,6 +82,13 @@
 			},
 			load(){
 				opengraph.context=nodes.canvas.getContext(`2d`);
+				let rect=document.createElementNS(`http://www.w3.org/2000/svg`,`rect`);
+				rect.setAttribute(`fill`,`#`+opengraph.settings.color);
+				rect.setAttribute(`height`,`100%`);
+				rect.setAttribute(`width`,`100%`);
+				rect.setAttribute(`x`,`0`);
+				rect.setAttribute(`y`,`0`);
+				nodes.svg.append(rect);
 				opengraph.icons=Object.values(icons)
 					.filter(opengraph.filter)
 					.sort(opengraph.random)

@@ -1,10 +1,11 @@
 export const settings={
-	icons:68,
-	columns:12,
-	rows:6,
-	gap:48,
 	centre:2,
+	color:"111",
+	columns:12,
+	gap:48,
+	icons:68,
+	layout:false,
 	native:24,
-	scale:2,
-	layout:false
+	rows:6,
+	scale:2
 };

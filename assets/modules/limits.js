@@ -1,5 +1,10 @@
 export const limits={
-	length:5000,
-	luminance:96,
-	ratio:3
+	hsl:{
+		hue:0,
+		saturation:0,
+		lightness:0
+	},
+	length:10000,
+	luminance:90,
+	ratio:3,
 };
