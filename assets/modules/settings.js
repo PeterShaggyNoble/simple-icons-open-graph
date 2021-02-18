@@ -1,6 +1,7 @@
 export const settings={
 	centre:2,
-	color:"111",
+	background:"111",
+	color:"fff",
 	columns:12,
 	gap:48,
 	icons:68,

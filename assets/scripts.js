@@ -20,7 +20,7 @@
 					x=opengraph.settings.left+(opengraph.settings.columns-opengraph.settings.centre)/2*opengraph.settings.step,
 					y=opengraph.settings.top+(opengraph.settings.rows-opengraph.settings.centre)/2*opengraph.settings.step,
 					scale=(opengraph.settings.native*opengraph.settings.scale*opengraph.settings.centre+opengraph.settings.gap*opengraph.settings.centre-opengraph.settings.gap)/opengraph.settings.native;
-				path.setAttribute(`fill`,`#fff`);
+				path.setAttribute(`fill`,`#`+opengraph.settings.color);
 				path.setAttribute(`transform`,`translate(${x},${y}) scale(${scale},${scale})`);
 				if(!opengraph.settings.layout)
 					path.setAttribute(`d`,icons.get(`Simple Icons`).path);
@@ -83,7 +83,7 @@
 			load(){
 				opengraph.context=nodes.canvas.getContext(`2d`);
 				let rect=document.createElementNS(`http://www.w3.org/2000/svg`,`rect`);
-				rect.setAttribute(`fill`,`#`+opengraph.settings.color);
+				rect.setAttribute(`fill`,`#`+opengraph.settings.background);
 				rect.setAttribute(`height`,`100%`);
 				rect.setAttribute(`width`,`100%`);
 				rect.setAttribute(`x`,`0`);
