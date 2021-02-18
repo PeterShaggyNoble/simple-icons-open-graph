@@ -4,7 +4,7 @@
 	<circle cx="12" cy="12" fill="#fff" r="16"/>
 	<script href="https://cdn.jsdelivr.net/npm/simple-icons@latest/index.min.js"></script>
 	<script>{
-		let	get=new URLSearchParams(window.location.search).get(`name`),
+		let	get=window.location.hash.slice(1),
 			icon=icons.get(get),
 			data=icon.path,
 			name=icon.title,
